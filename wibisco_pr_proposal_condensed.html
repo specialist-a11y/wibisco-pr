@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WIBISCO Puerto Rico — Digital Launch Proposal</title>
+  <style>
+    /* ── Fonts ── */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Brand tokens ── */
+    :root {
+      --navy:   #004990;
+      --amber:  #f98900;
+      --navy-light: #e8f0fb;
+      --text:   #1a1a2e;
+      --muted:  #5c6a7a;
+      --white:  #ffffff;
+      --border: #d0dce8;
+      --page-w: 210mm;
+    }
+
+    /* ── Base ── */
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 9.5pt;
+      color: var(--text);
+      background: #f4f6fa;
+      line-height: 1.45;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      width: var(--page-w);
+      height: 297mm;
+      margin: 20px auto;
+      background: var(--white);
+      box-shadow: 0 4px 24px rgba(0,73,144,.15);
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── Header strip ── */
+    .page-header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 22px 28px 16px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .page-header .brand { display: flex; flex-direction: column; gap: 2px; }
+    .page-header .brand .name {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: .06em;
+      color: var(--white);
+    }
+    .page-header .brand .tagline {
+      font-size: 8pt;
+      font-weight: 400;
+      color: rgba(255,255,255,.65);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .page-header .doc-info { text-align: right; }
+    .page-header .doc-info .doc-title {
+      font-size: 11pt;
+      font-weight: 700;
+      color: var(--amber);
+      line-height: 1.2;
+    }
+    .page-header .doc-info .doc-meta {
+      font-size: 7.5pt;
+      color: rgba(255,255,255,.55);
+      margin-top: 3px;
+    }
+
+    /* ── Amber rule ── */
+    .accent-rule { height: 4px; background: var(--amber); }
+
+    /* ── Body area ── */
+    .page-body { padding: 16px 28px 16px; }
+
+    /* ── Section heading ── */
+    h2 {
+      font-size: 9pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--navy);
+      border-bottom: 2px solid var(--amber);
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+
+    /* ── Two-column layout ── */
+    .cols { display: grid; gap: 18px; }
+    .cols-2 { grid-template-columns: 1fr 1fr; }
+    .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--navy-light);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+    .card h3 {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .card p, .card li {
+      font-size: 8pt;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .card ul { padding-left: 13px; }
+
+    /* ── Stat pills ── */
+    .stats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .stat {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 4px;
+      padding: 7px 13px;
+      text-align: center;
+      flex: 1;
+      min-width: 70px;
+    }
+    .stat .num { font-size: 14pt; font-weight: 800; color: var(--amber); line-height: 1; }
+    .stat .lbl { font-size: 6.5pt; color: rgba(255,255,255,.7); text-transform: uppercase; letter-spacing: .08em; margin-top: 2px; }
+
+    /* ── Brand tags ── */
+    .brand-tags { display: flex; gap: 8px; margin-bottom: 14px; }
+    .brand-tag {
+      background: var(--amber);
+      color: var(--navy);
+      font-size: 8pt;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 4px 12px;
+    }
+
+    /* ── Pricing table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8pt;
+      margin-top: 6px;
+    }
+    thead tr { background: var(--navy); color: var(--white); }
+    thead th {
+      padding: 7px 10px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 7.5pt;
+      letter-spacing: .06em;
+    }
+    tbody tr:nth-child(even) { background: var(--navy-light); }
+    tbody td { padding: 6px 10px; color: var(--text); vertical-align: top; }
+    tbody tr.subtotal td {
+      font-weight: 700;
+      color: var(--navy);
+      border-top: 2px solid var(--amber);
+    }
+    tbody tr.total-row td {
+      background: var(--navy);
+      color: var(--white);
+      font-weight: 800;
+      font-size: 9pt;
+    }
+    tbody tr.total-row td:last-child { color: var(--amber); }
+    .price-note { font-size: 7pt; color: var(--muted); margin-top: 5px; }
+
+    /* ── Timeline ── */
+    .timeline { display: flex; gap: 0; margin-bottom: 14px; }
+    .tl-item {
+      flex: 1;
+      position: relative;
+      padding: 8px 8px 8px 12px;
+      background: var(--navy-light);
+      border-left: 3px solid var(--amber);
+      margin-left: 6px;
+    }
+    .tl-item:first-child { margin-left: 0; }
+    .tl-item .wk { font-size: 7pt; font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: .08em; }
+    .tl-item .ph { font-size: 8pt; font-weight: 700; color: var(--navy); margin: 2px 0; }
+    .tl-item .desc { font-size: 7pt; color: var(--muted); }
+
+    /* ── KPI grid ── */
+    .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .kpi {
+      border: 1.5px solid var(--border);
+      border-radius: 5px;
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .kpi .kpi-val { font-size: 12pt; font-weight: 800; color: var(--navy); line-height: 1; }
+    .kpi .kpi-lbl { font-size: 7pt; color: var(--muted); margin-top: 2px; }
+    .kpi .kpi-tool { font-size: 6.5pt; color: var(--amber); font-weight: 600; margin-top: 1px; }
+
+    /* ── Next steps ── */
+    .steps { display: flex; flex-direction: column; gap: 6px; }
+    .step { display: flex; align-items: flex-start; gap: 10px; }
+    .step-num {
+      background: var(--amber);
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 8pt;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .step-text { font-size: 8pt; color: var(--text); line-height: 1.4; }
+
+    /* ── Footer ── */
+    .page-footer {
+      border-top: 1px solid var(--border);
+      padding: 10px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-footer span { font-size: 7pt; color: var(--muted); }
+    .page-footer .conf {
+      background: var(--amber);
+      color: var(--navy);
+      font-size: 6.5pt;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    /* ── Utility ── */
+    .mb-14 { margin-bottom: 14px; }
+    .mb-10 { margin-bottom: 10px; }
+    .intro-p { font-size: 8.5pt; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+    strong { color: var(--navy); }
+
+    /* ── Print ── */
+    @media print {
+      body { background: white; }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+        page-break-inside: avoid;
+        height: 297mm;
+        min-height: unset;
+        max-height: 297mm;
+        overflow: hidden;
+        width: 210mm;
+      }
+      .page:last-child { page-break-after: auto; }
+      @page { size: A4; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 1 — STRATEGY
+═══════════════════════════════════════════════════ -->
+<div class="page">
+
+  <div class="page-header">
+    <div class="brand">
+      <div class="name">WIBISCO</div>
+      <div class="tagline">Baked in the Caribbean · Loved Everywhere</div>
+    </div>
+    <div class="doc-info">
+      <div class="doc-title">Puerto Rico Digital Launch<br>Proposal</div>
+      <div class="doc-meta">Prepared by ashbeadigital.com &nbsp;|&nbsp; April 2026 &nbsp;|&nbsp; v2.0</div>
+    </div>
+  </div>
+  <div class="accent-rule"></div>
+
+  <div class="page-body">
+
+    <!-- Stats row -->
+    <div class="stats">
+      <div class="stat"><div class="num">85+</div><div class="lbl">Years of Craft</div></div>
+      <div class="stat"><div class="num">3</div><div class="lbl">Launch Brands</div></div>
+      <div class="stat"><div class="num">21</div><div class="lbl">Export Markets</div></div>
+      <div class="stat"><div class="num">Mid-May</div><div class="lbl">Distribution Start</div></div>
+    </div>
+
+    <!-- Launch brands -->
+    <div class="brand-tags">
+      <span class="brand-tag">Shirley Biscuits</span>
+      <span class="brand-tag">Tea Times</span>
+      <span class="brand-tag">Licias Crackers</span>
+    </div>
+
+    <!-- Objective + context -->
+    <div class="cols cols-2 mb-14">
+      <div>
+        <h2>The Opportunity</h2>
+        <p class="intro-p">
+          Puerto Rico is WIBISCO's most strategically important expansion to date — a bilingual, Caribbean-connected market of 3.2 million consumers with deep island food traditions and high digital engagement. A focused digital-first launch, leading in <strong>Spanish</strong> and anchored by brand story, gives WIBISCO an authentic entry that feels regional, not foreign.
+        </p>
+        <p class="intro-p">
+          Distribution begins <strong>mid-May 2026</strong>. The 6–8 weeks before shelf availability are the highest-leverage window to build an opted-in consumer audience and generate demand ahead of first purchase.
+        </p>
+      </div>
+      <div>
+        <h2>Three Launch Brands</h2>
+        <div class="card mb-10">
+          <h3>🍪 Shirley Biscuits</h3>
+          <p>WIBISCO's #1 export — a golden, multi-generational icon. Positions as the everyday comfort snack that Caribbean families know by heart.</p>
+        </div>
+        <div class="card mb-10">
+          <h3>☕ Tea Times</h3>
+          <p>Cream-filled sandwich biscuits in Vanilla, Chocolate & Double Chocolate. The natural match for Puerto Rico's strong café culture.</p>
+        </div>
+        <div class="card">
+          <h3>✨ Licias Crackers</h3>
+          <p>Lightly Salted, Buttery Blend & Multigrain. An any-occasion snack built for lunchboxes, entertaining, and impulse purchase.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Landing page strategy -->
+    <h2>Landing Page Strategy — 6 Core Sections</h2>
+    <div class="cols cols-3 mb-14">
+      <div class="card">
+        <h3>01 · Bilingual Hero</h3>
+        <p>Spanish-first by default with EN toggle. Headline: <em>"El sabor del Caribe, finalmente aquí."</em> 85-year heritage credentials front and centre.</p>
+      </div>
+      <div class="card">
+        <h3>02 · Brand Explorer</h3>
+        <p>Interactive cards for Shirley, Tea Times & Licias. Tap to expand flavour profiles, tags, and lifestyle context — digital shelf browsing before products arrive.</p>
+      </div>
+      <div class="card">
+        <h3>03 · Email Sign-Up</h3>
+        <p>Mid-page lead capture: name, email, municipality, brand preference, and opt-in consent. Powers the day-one "now available near you" retail alert campaign.</p>
+      </div>
+      <div class="card">
+        <h3>04 · Flavour Explorer</h3>
+        <p>Two-step mood quiz surfaces a personalised product match. Shareable result card drives organic social amplification at near-zero incremental cost.</p>
+      </div>
+      <div class="card">
+        <h3>05 · Where to Buy</h3>
+        <p>Retail partner list with availability status. Static list at launch; interactive store map added in Phase 2 once 5+ confirmed locations are verified.</p>
+      </div>
+      <div class="card">
+        <h3>06 · Brand Story</h3>
+        <p>"Hecho con tradición, para Puerto Rico." Emotional anchor connecting WIBISCO's Caribbean roots to Puerto Rican identity. Builds trust for first-time buyers.</p>
+      </div>
+    </div>
+
+    <!-- Tracking -->
+    <h2>Tracking & Analytics Stack</h2>
+    <div class="cols cols-3 mb-10">
+      <div class="card">
+        <h3>Google Tag Manager</h3>
+        <p>Centralised tag management for all tracking events — brand card clicks, form submissions, quiz completions, CTA interactions.</p>
+      </div>
+      <div class="card">
+        <h3>Meta Pixel</h3>
+        <p>Retargeting audiences built from page visitors. Powers lookalike campaigns to reach new Puerto Rican consumers beyond organic reach.</p>
+      </div>
+      <div class="card">
+        <h3>Microsoft Clarity</h3>
+        <p>Heatmaps and session recordings to identify friction points on the lead form and interactive sections. Ongoing optimisation tool.</p>
+      </div>
+    </div>
+
+  </div><!-- /page-body -->
+
+  <div class="page-footer">
+    <span>WIBISCO Puerto Rico Launch Proposal · Page 1 of 2</span>
+    <span class="conf">Confidential</span>
+    <span>ashbeadigital.com</span>
+  </div>
+
+</div><!-- /page 1 -->
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 2 — INVESTMENT, TIMELINE & NEXT STEPS
+═══════════════════════════════════════════════════ -->
+<div class="page">
+
+  <div class="page-header">
+    <div class="brand">
+      <div class="name">WIBISCO</div>
+      <div class="tagline">Baked in the Caribbean · Loved Everywhere</div>
+    </div>
+    <div class="doc-info">
+      <div class="doc-title">Investment, Timeline<br>& Next Steps</div>
+      <div class="doc-meta">Prepared by ashbeadigital.com &nbsp;|&nbsp; April 2026 &nbsp;|&nbsp; v2.0</div>
+    </div>
+  </div>
+  <div class="accent-rule"></div>
+
+  <div class="page-body">
+
+    <!-- Timeline -->
+    <h2>Implementation Timeline — 7 Weeks to Launch</h2>
+    <div class="timeline mb-14">
+      <div class="tl-item">
+        <div class="wk">Wk 1</div>
+        <div class="ph">Discovery</div>
+        <div class="desc">Sign-off on strategy, WordPress setup confirmed, brief issued.</div>
+      </div>
+      <div class="tl-item">
+        <div class="wk">Wk 2–3</div>
+        <div class="ph">Creative</div>
+        <div class="desc">Photography (3 brands), bilingual copy (ES primary / EN).</div>
+      </div>
+      <div class="tl-item">
+        <div class="wk">Wk 4–5</div>
+        <div class="ph">Build</div>
+        <div class="desc">Landing page dev on WordPress, form integration, GTM + Pixel setup.</div>
+      </div>
+      <div class="tl-item">
+        <div class="wk">Wk 6</div>
+        <div class="ph">QA + Soft Launch</div>
+        <div class="desc">Device testing, analytics validation, paid social test.</div>
+      </div>
+      <div class="tl-item">
+        <div class="wk">Wk 7</div>
+        <div class="ph">Full Launch</div>
+        <div class="desc">Paid search, social & influencer activation. Store list live.</div>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <h2>90-Day Success Targets</h2>
+    <div class="kpi-grid mb-14">
+      <div class="kpi">
+        <div class="kpi-val">10,000</div>
+        <div class="kpi-lbl">Unique Visitors — Month 1</div>
+        <div class="kpi-tool">GA4 / Meta Ads</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">500+</div>
+        <div class="kpi-lbl">Email Leads — Month 1</div>
+        <div class="kpi-tool">WordPress + GA4 Goals</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">20%</div>
+        <div class="kpi-lbl">Form Completion Rate</div>
+        <div class="kpi-tool">GA4 Conversions</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">35%</div>
+        <div class="kpi-lbl">Flavour Quiz Completions</div>
+        <div class="kpi-tool">GA4 Custom Events</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">2:30+</div>
+        <div class="kpi-lbl">Avg. Time on Page</div>
+        <div class="kpi-tool">GA4 Engagement</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">85%</div>
+        <div class="kpi-lbl">Traffic from Puerto Rico</div>
+        <div class="kpi-tool">GA4 Geo Filter</div>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <h2>Investment Summary — BDS Dollars</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:42%">Deliverable</th>
+          <th style="width:30%">Scope</th>
+          <th style="width:28%;text-align:right">Investment (BDS $)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- One-time -->
+        <tr><td colspan="3" style="font-weight:700;color:#004990;padding-top:8px;font-size:7.5pt;letter-spacing:.06em;text-transform:uppercase;">One-Time Setup</td></tr>
+        <tr>
+          <td>WordPress Landing Page Design & Development</td>
+          <td>Responsive, bilingual (ES/EN), 6 sections</td>
+          <td style="text-align:right">$8,000 – $11,500</td>
+        </tr>
+        <tr>
+          <td>Bilingual Copywriting</td>
+          <td>Spanish-primary; Puerto Rican native writer</td>
+          <td style="text-align:right">$2,000 – $3,000</td>
+        </tr>
+        <tr>
+          <td>WordPress Integration & Email Automation</td>
+          <td>Lead form → WordPress-powered email sequence</td>
+          <td style="text-align:right">$1,200 – $2,000</td>
+        </tr>
+        <tr>
+          <td>Analytics Stack Setup</td>
+          <td>GTM, GA4, Meta Pixel, MS Clarity, events</td>
+          <td style="text-align:right">$1,000 – $1,800</td>
+        </tr>
+        <tr class="subtotal">
+          <td colspan="2">One-Time Total</td>
+          <td style="text-align:right">$12,200 – $18,300</td>
+        </tr>
+        <!-- Monthly -->
+        <tr><td colspan="3" style="font-weight:700;color:#004990;padding-top:10px;font-size:7.5pt;letter-spacing:.06em;text-transform:uppercase;">Monthly Management (3-Month Initial Term)</td></tr>
+        <tr>
+          <td>Monthly Retainer — Management & Optimisation</td>
+          <td>Paid social, reporting, A/B testing, ongoing support</td>
+          <td style="text-align:right">$2,000 – $3,000 /mo</td>
+        </tr>
+        <tr>
+          <td>Paid Advertising Media Budget</td>
+          <td>Meta + Google — recommended minimum</td>
+          <td style="text-align:right">$3,500 – $6,000 /mo</td>
+        </tr>
+        <tr>
+          <td>Content Updates & WordPress</td>
+          <td>Store list updates, email sends, reporting</td>
+          <td style="text-align:right">$700 – $1,000 /mo</td>
+        </tr>
+        <tr class="subtotal">
+          <td colspan="2">Monthly Total</td>
+          <td style="text-align:right">$6,200 – $10,000 /mo</td>
+        </tr>
+        <!-- Grand total -->
+        <tr class="total-row">
+          <td colspan="2">Total 3-Month Programme Investment</td>
+          <td style="text-align:right">$30,800 – $48,300 BDS</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price-note">All prices in Barbadian Dollars (BDS). BDS $1 = USD $0.50. Media budget is a pass-through cost with no agency markup. Photography subject to scope confirmation. A fixed-fee package is available on request.</p>
+
+    <!-- Next steps -->
+    <div class="cols cols-2" style="margin-top:14px;">
+      <div>
+        <h2>Next Steps</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-text"><strong>Approve proposal</strong> and confirm budget range to proceed with scoping.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-text"><strong>Confirm WordPress setup</strong> — hosting, theme, and plugin stack.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-text"><strong>Engage Puerto Rican copywriter</strong> for ES localisation (not translation).</div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-text"><strong>Confirm launch date</strong> and lock 7-week implementation timeline.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-text"><strong>Kick-off meeting</strong> with Brand Manager and Digital Strategist.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Strategic Reminders</h2>
+        <div class="card mb-10">
+          <h3>Spanish first — always</h3>
+          <p>Default the page to ES. Engage a Puerto Rican native writer; adapted copy outperforms direct translation by a significant margin in form completion rates.</p>
+        </div>
+        <div class="card mb-10">
+          <h3>Launch the page early</h3>
+          <p>Go live 6–8 weeks before mid-May distribution. The email list built in this window is the highest-value asset of the entire programme.</p>
+        </div>
+        <div class="card">
+          <h3>Store map after 5 locations</h3>
+          <p>Add the interactive store finder only once 5+ verified retail partners are confirmed. An empty map erodes trust faster than no map at all.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-body -->
+
+  <div class="page-footer">
+    <span>WIBISCO Puerto Rico Launch Proposal · Page 2 of 2</span>
+    <span class="conf">Confidential</span>
+    <span>ashbeadigital.com</span>
+  </div>
+
+</div><!-- /page 2 -->
+
+</body>
+</html>
